@@ -1,4 +1,4 @@
-
+import {cart} from '../data/cart.js';
 let productsHtml = '';
 products.forEach((product) => {
 
@@ -56,10 +56,11 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHtml;
 
 document.querySelectorAll('.js-add-to-cart-button').forEach((button) => {
+  let hideTimeoutId;
   button.addEventListener('click', () => 
   {
     const productId = button.dataset.productId;
-    item = cart.find(a => a.productId === productId) ;
+    let item = cart.find(a => a.productId === productId) ;
     item ? item.quantity++ : cart.push({productId: productId, quantity: 1});
 
     let cartQuantity = 0;
@@ -67,5 +68,13 @@ document.querySelectorAll('.js-add-to-cart-button').forEach((button) => {
       cartQuantity += item.quantity;
     })
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+
+   const productContainer = button.closest('.product-container');
+   const message = productContainer.querySelector('.added-to-cart');
+   message.style.opacity = 1;
+   clearTimeout(hideTimeoutId);
+   hideTimeoutId =  setTimeout(() => {
+      message.style.opacity = 0;
+    }, 4000);
   })
 })
