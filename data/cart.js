@@ -1,7 +1,7 @@
 export function addToCart(productId, cart,quantity) {
     quantity = Number(quantity);
     let item = cart.find(a => a.productId === productId) ;
-    item ? item.quantity += quantity : cart.push({productId: productId, quantity: quantity});
+    item ? item.quantity += quantity : cart.push({productId: productId, quantity: quantity });
 
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartQuantity(cart);
@@ -18,3 +18,6 @@ else {
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 }
 }
+
+
+
